@@ -46,6 +46,14 @@ dependencies:
   rounded_loading_button: ^2.1.0
   flutter_awesome_buttons: ^1.1.0
   alert: ^2.0.1
+  anim_search_bar: ^2.0.2
+  firebase_storage: ^11.0.6
+  file_picker: ^5.2.2
+  flutter_launcher_icons: ^0.11.0
+
+flutter_icons:
+  android: true
+  image_path: "image/logo.png"
 
 dev_dependencies:
   flutter_test:

@@ -8,16 +8,13 @@ import 'package:karaoke_real_one/pages/home/listen_and_record/music_detail_page.
 class ProfilePage extends StatefulWidget {
   final List userData;
 
-  const ProfilePage({Key? key, 
-  required this.userData}) 
-  :super (key: key);
+  const ProfilePage({Key? key, required this.userData}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
               SizedBox(height: 100),
               ProfileWidget(
                 imagePath:
-                    'https://upload.wikimedia.org/wikipedia/th/thumb/5/5d/Your_Name_poster.jpg/640px-Your_Name_poster.jpg',
+                    'https://i.pinimg.com/280x280_RS/2e/45/66/2e4566fd829bcf9eb11ccdb5f252b02f.jpg',
                 onClicked: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => EditProfilePage()),
@@ -47,16 +44,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 widget.userData[0]['userName'],
                 style: TextStyle(color: Colors.white, fontSize: 22),
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 8),
               Text(
                 widget.userData[0]['userEmail'],
                 style: TextStyle(color: Colors.green, fontSize: 16),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 25),
               buildNumber(),
-              SizedBox(height: 20),
-              buildAbout(),
-              SizedBox(height: 15),
+              SizedBox(height: 60),
               getList()
             ],
           ),
@@ -78,7 +73,9 @@ class _ProfilePageState extends State<ProfilePage> {
             Text(
               "Profile",
               style: TextStyle(
-                  fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
             IconButton(
               icon: Icon(Icons.settings),
@@ -93,32 +90,13 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-  Widget buildAbout() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'About',
-            style: TextStyle(fontSize: 24, color: Colors.white),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'KMUTNB',
-            style: TextStyle(fontSize: 12, color: Colors.white),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget buildNumber() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        buildButton(context, widget.userData[0]['songs_count'].toString(), 'Singing'),
+        buildButton(
+            context, widget.userData[0]['songs_count'].toString(), 'Singing'),
         buildDivider(),
         buildButton(context, widget.userData[0]['rating'].toString(), 'Rating'),
       ],
@@ -153,84 +131,78 @@ class _ProfilePageState extends State<ProfilePage> {
                     TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
               ),
             ],
-          )
-      );
+          ));
 
-  Widget getList (){
+  Widget getList() {
     List userSongs = widget.userData[0]['songs'];
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Column(
-          children: [
-            Text("USER LIST SONG"),
-            Row(
-              children: List.generate(userSongs.length, (index) {
-                return Padding(
-                  padding: EdgeInsets.only(right: 15),
-                  child: GestureDetector(
-                    onTap: (){
-                      Navigator.push(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Column(
+        children: [
+          Text("USER LIST SONG"),
+          Row(
+            children: List.generate(userSongs.length, (index) {
+              return Padding(
+                padding: EdgeInsets.only(right: 15),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
                         context,
                         PageTransition(
-                          alignment: Alignment.bottomCenter,
-                          child: MusicDetailPage(
-                            title: userSongs[0]['title'],
-                            description: userSongs[0]['description'],
-                            color: Colors.black,
-                            img: userSongs[0]['img'],
-                            songUrl: userSongs[0]['song_url'],
-                          ),
-                        type: PageTransitionType.scale)
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 180,
-                          height: 180,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(userSongs[0]['img']),
-                              fit: BoxFit.cover,
+                            alignment: Alignment.bottomCenter,
+                            child: MusicDetailPage(
+                              title: userSongs[0]['title'],
+                              description: userSongs[0]['description'],
+                              color: Colors.black,
+                              img: userSongs[0]['img'],
+                              songUrl: userSongs[0]['song_url'],
                             ),
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(10)
+                            type: PageTransitionType.scale));
+                  },
+                  child: Column(children: [
+                    Container(
+                      width: 180,
+                      height: 180,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(userSongs[0]['img']),
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text(userSongs[0]['title'],
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          width: 100,
-                          child: Text(userSongs[0]['description'],
-                            maxLines: 1,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w600
-                            ),
-                          ),
-                        )
-                      ]
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(10)),
                     ),
-                  ),
-                );
-              }),
-            )
-          ],
-        ),
-      );
-
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      userSongs[0]['title'],
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Container(
+                      width: 100,
+                      child: Text(
+                        userSongs[0]['description'],
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    )
+                  ]),
+                ),
+              );
+            }),
+          )
+        ],
+      ),
+    );
   }
 }
