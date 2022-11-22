@@ -8,18 +8,17 @@ class AlbumPage extends StatefulWidget {
   final List userData;
   final int index;
 
-  const AlbumPage({
-    Key? key, 
-    required this.song,
-    required this.userData,
-    required this.index
-    }) : super(key: key);
+  const AlbumPage(
+      {Key? key,
+      required this.song,
+      required this.userData,
+      required this.index})
+      : super(key: key);
   @override
   _AlbumPageState createState() => _AlbumPageState();
 }
 
 class _AlbumPageState extends State<AlbumPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,54 +58,50 @@ class _AlbumPageState extends State<AlbumPage> {
                             color: Colors.white)),
                     Container(
                       decoration: BoxDecoration(
-                          color: Colors.grey, borderRadius: BorderRadius.circular(5)),
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(5)),
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 0, right: 0, top: 0, bottom: 0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: Stack(
-                            children: <Widget>[
-                              Positioned.fill(
-                                child: Container(
+                          padding: const EdgeInsets.only(
+                              left: 0, right: 0, top: 0, bottom: 0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: Stack(
+                              children: <Widget>[
+                                Positioned.fill(
+                                    child: Container(
                                   decoration: const BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: <Color>[
-                                        Color.fromARGB(255, 13, 161, 33),
-                                        Color.fromARGB(255, 25, 210, 102),
-                                        Color.fromARGB(255, 66, 245, 141),
-                                      ]
-                                    )
-                                  ),
-                                )
-                              ),
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.all(16.0),
-                                  textStyle: const TextStyle(fontSize: 20),
-                                ),
-                                child: const Text('SINGING NOW'),
-                                onPressed: () async {
-                                  Navigator.push(context,
-                                    PageTransition(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Singing(
-                                        img: widget.song['img'],
-                                        song_url: widget.song['song_url'],
-                                        songname: widget.song['title'],
-                                        userData: widget.userData,
-                                        index: widget.index,
-                                      ),
-                                      type: PageTransitionType.scale
+                                      gradient: LinearGradient(colors: <Color>[
+                                    Color.fromARGB(255, 13, 161, 33),
+                                    Color.fromARGB(255, 25, 210, 102),
+                                    Color.fromARGB(255, 66, 245, 141),
+                                  ])),
+                                )),
+                                TextButton(
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: Colors.white,
+                                      padding: const EdgeInsets.all(16.0),
+                                      textStyle: const TextStyle(fontSize: 20),
                                     ),
-                                  );
-                                }
-                              )
-                            ],
-                          ),
-                        )
-                      ),
+                                    child: const Text('SINGING NOW'),
+                                    onPressed: () async {
+                                      Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            alignment: Alignment.bottomCenter,
+                                            child: Singing(
+                                              img: widget.song['img'],
+                                              song_url:
+                                                  widget.song['intruments'],
+                                              songname: widget.song['title'],
+                                              userData: widget.userData,
+                                              index: widget.index,
+                                            ),
+                                            type: PageTransitionType.scale),
+                                      );
+                                    })
+                              ],
+                            ),
+                          )),
                     )
                   ],
                 ),
@@ -225,7 +220,10 @@ class _AlbumPageState extends State<AlbumPage> {
                         Container(
                           width: (size.width - 60) * 0.77,
                           child: Text(
-                            "${index + 1}  " + songAlbums[index]['title'],
+                            "${index + 1}  " +
+                                songAlbums[index]['title'] +
+                                " - " +
+                                songAlbums[index]['userName'],
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -236,8 +234,9 @@ class _AlbumPageState extends State<AlbumPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                songAlbums[index]['duration'],
-                                style: TextStyle(color: Colors.grey, fontSize: 14),
+                                'Star(s): ',
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 14),
                               ),
                               Container(
                                 width: 25,

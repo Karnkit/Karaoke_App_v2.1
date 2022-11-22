@@ -152,7 +152,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             alignment: Alignment.bottomCenter,
                             child: MusicDetailPage(
                               title: userSongs[0]['title'],
-                              description: userSongs[0]['description'],
+                              description: "",
                               color: Colors.black,
                               img: userSongs[0]['img'],
                               songUrl: userSongs[0]['song_url'],
@@ -187,7 +187,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Container(
                       width: 100,
                       child: Text(
-                        userSongs[0]['description'],
+                        "",
                         maxLines: 1,
                         textAlign: TextAlign.center,
                         style: TextStyle(

@@ -9,11 +9,10 @@ import 'package:karaoke_real_one/fb_connect.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -50,43 +49,52 @@ class _HomePage extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-            primaryColor: Color.fromARGB(255, 0, 255, 8),
-            dividerColor: Colors.white),
-        debugShowCheckedModeBanner: false,
-        home: Home(),
+      theme: ThemeData(
+          primaryColor: Color.fromARGB(255, 0, 255, 8),
+          dividerColor: Colors.white),
+      debugShowCheckedModeBanner: false,
+      home: Home(),
     );
   }
 
   Widget Home() {
     final user = FirebaseAuth.instance.currentUser;
     final nextroute;
-    if(user != null ){
+    if (user != null) {
       loaduser(user.uid);
-      if(!userData.isEmpty ) {
-        fetchingSongList(userData[0]['userName']);
-        userData[0]['songs'] = userSongs;
-        if(!userSongs.isEmpty && userData[0]['songs_count'] != 0){
-          nextroute =  RootApp(userData: userData, rankingData: usersRanking);
-        }else if(userData[0]['songs_count'] ==0){
+      if (!userData.isEmpty) {
+        {
+          fetchingSongList(userData[0]['userName']);
+          userData[0]['songs'] = userSongs;
+          // nextroute = MaterialApp(
+          //   theme: ThemeData(
+          //       primaryColor: Color.fromARGB(255, 0, 255, 8),
+          //       dividerColor: Colors.white),
+          //   debugShowCheckedModeBanner: false,
+          // );
+        }
+        if (!userSongs.isEmpty && userData[0]['songs_count'] > 0) {
           nextroute = RootApp(userData: userData, rankingData: usersRanking);
-        }else{
+        } else if (!userSongs.isEmpty && userData[0]['songs_count'] == 0) {
+          userData[0]['songs'] = [];
+          nextroute = RootApp(userData: userData, rankingData: usersRanking);
+        } else {
           nextroute = MaterialApp(
             theme: ThemeData(
-            primaryColor: Color.fromARGB(255, 0, 255, 8),
-            dividerColor: Colors.white),
+                primaryColor: Color.fromARGB(255, 0, 255, 8),
+                dividerColor: Colors.white),
             debugShowCheckedModeBanner: false,
           );
         }
       } else {
         nextroute = MaterialApp(
           theme: ThemeData(
-          primaryColor: Color.fromARGB(255, 0, 255, 8),
-          dividerColor: Colors.white),
+              primaryColor: Color.fromARGB(255, 0, 255, 8),
+              dividerColor: Colors.white),
           debugShowCheckedModeBanner: false,
         );
       }
-    }else{
+    } else {
       nextroute = LoginPage();
     }
     return nextroute;
